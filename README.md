@@ -9,29 +9,45 @@ replication.yml
 data/
 code/
 artifacts/
+tests/testthat/
 ```
 
 The [registry](https://github.com/replicate-anything/registry) holds a lightweight stub under `papers/10.1017S0003055403000534/` that points here.
 
-## Rebuild display artifacts
+## Build display artifacts
 
 From this repository root:
 
-```bash
-Rscript -e "replicateEverything::replicate_paper('10.1017/S0003055403000534', install_deps = TRUE)"
+```r
+library(replicateEverything)
+options(
+  replicateEverything.registry_root = "../registry",
+  replicateEverything.use_sibling_packages = TRUE
+)
+replicateEverything::build_study_artifacts(".", install_deps = TRUE)
 ```
 
-Or run individual scripts from `code/` and commit updated files under `artifacts/`.
-
 ## Tests
-
-From this repository root (with `replicateEverything` installed and the registry as a sibling folder):
 
 ```r
 testthat::test_dir("tests/testthat")
 ```
 
-Tests call `replicateEverything::run_replication()` for each table/figure and check that formatted output matches the committed artifact.
+## Validate before merge
+
+```r
+replicateEverything::check_folder_replication(
+  ".",
+  registry_root = "../registry"
+)
+```
+
+## Register with the registry
+
+```r
+options(replicateEverything.registry_root = "../registry")
+replicateEverything::add_folder_paper(".")
+```
 
 ## Local development (monorepo)
 
@@ -42,5 +58,7 @@ options(
   replicateEverything.registry_root = "../registry",
   replicateEverything.use_sibling_packages = TRUE
 )
-replicateEverything::render_replication("10.1017/S0003055403000534", "tab_1")
+replicateEverything::run_replication("10.1017/S0003055403000534", "tab_1", format = TRUE)
 ```
+
+See `vignette("folder-replication-checklist", package = "replicateEverything")`.
