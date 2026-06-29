@@ -23,6 +23,16 @@ Rscript -e "replicateEverything::replicate_paper('10.1017/S0003055403000534', in
 
 Or run individual scripts from `code/` and commit updated files under `artifacts/`.
 
+## Tests
+
+From this repository root (with `replicateEverything` installed and the registry as a sibling folder):
+
+```r
+testthat::test_dir("tests/testthat")
+```
+
+Tests call `replicateEverything::run_replication()` for each table/figure and check that formatted output matches the committed artifact.
+
 ## Local development (monorepo)
 
 When this folder sits next to `registry/` and `replicateEverything/`:
