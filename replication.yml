@@ -12,6 +12,8 @@ paper:
 replications:
 
   - id: tab_1
+    group: tab_1
+    engine: r
     type: table
     label: Table 1
     description: Logit analyses of determinants of civil war onset, 1945–99
@@ -23,3 +25,16 @@ replications:
       - haven
       - modelsummary
       - kableExtra
+
+  - id: tab_1_stata
+    group: tab_1
+    engine: stata
+    type: table
+    label: Table 1
+    description: Logit analyses of determinants of civil war onset, 1945–99 (original Stata)
+    data: data/repdata.dta
+    code: code/tab_1.do
+    stata_source: code/mkreptable1.do
+    format: code/format_stata.R
+    output: artifacts/staging/tab_1_stata.log
+    artifact: artifacts/tab_1_stata.html

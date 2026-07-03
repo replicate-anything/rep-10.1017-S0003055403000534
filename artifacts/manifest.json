@@ -7,6 +7,11 @@
       "status": "ok",
       "artifact": "artifacts/tab_1.html",
       "format": "html"
+    },
+    "tab_1_stata": {
+      "status": "ok",
+      "artifact": "artifacts/tab_1_stata.html",
+      "format": "html"
     }
   }
 }

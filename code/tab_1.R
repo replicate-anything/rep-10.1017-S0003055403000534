@@ -125,5 +125,3 @@ format_tab_1 <- function(object) {
 }
 
 make_tab_1(haven::read_dta("../data/repdata.dta")) |> format_tab_1()
-
-make_tab_1(repdata) |> format_tab_1()

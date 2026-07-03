@@ -1,0 +1,6 @@
+artifacts/staging/
+artifacts/staging/.run/
+*.log
+replicate_*.log
+.Rhistory
+.Rproj.user

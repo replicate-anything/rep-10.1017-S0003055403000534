@@ -28,6 +28,16 @@ options(
 replicateEverything::build_study_artifacts(".", install_deps = TRUE)
 ```
 
+### Stata Table 1
+
+Original Stata code is in `code/mkreptable1.do` (from Fearon & Laitin’s replication archive). The runner `code/tab_1.do` writes `artifacts/staging/tab_1_stata.log`; format with:
+
+```r
+Rscript scripts/build_stata_artifacts.R
+```
+
+`replication.yml` lists both `tab_1` (R) and `tab_1_stata` under `group: tab_1` so Shiny shows R and Stata icons for Table 1.
+
 ## Tests
 
 ```r
@@ -61,4 +71,5 @@ options(
   replicateEverything.use_sibling_packages = TRUE
 )
 replicateEverything::run_replication("10.1017/S0003055403000534", "tab_1", format = TRUE)
+replicateEverything::run_replication("10.1017/S0003055403000534", "tab_1_stata", format = TRUE)
 ```

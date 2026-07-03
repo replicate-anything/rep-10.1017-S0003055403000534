@@ -111,3 +111,28 @@ test_that("formatted live table matches precomputed artifact", {
     }
   )
 })
+
+test_that("tab_1_stata artifact is available", {
+  testthat::skip_if_not_installed("replicateEverything")
+
+  ctx <- study_test_context()
+  artifact_path <- file.path(ctx$study_root, "artifacts", "tab_1_stata.html")
+  testthat::skip_if_not(file.exists(artifact_path), "tab_1_stata artifact missing")
+
+  withr::with_options(
+    list(
+      replicateEverything.registry_root = ctx$registry_root,
+      replicateEverything.index = ctx$local_index,
+      replicateEverything.use_sibling_packages = TRUE,
+      replicateEverything.study_folders_root = ctx$monorepo_root
+    ),
+    {
+      html <- replicateEverything::load_artifact(
+        DOI,
+        "tab_1_stata",
+        folder = FOLDER
+      )
+      testthat::expect_true(grepl("logit", html, ignore.case = TRUE))
+    }
+  )
+})
