@@ -12,8 +12,9 @@ make_tab_1 <- function(data) {
   # Stata variable lpopl is stored as lpopl1 in the replication data set.
   df$lpopl <- df$lpopl1
 
+  # Data not actually binary but treated as binary by stata
   for (v in c("onset", "ethonset", "emponset", "cowonset")) {
-    df[[v]] <- ifelse(df[[v]] == 1, 1, 0)
+    df[[v]] <- ifelse(df[[v]] >= 1, 1, 0)
   }
 
   list(
