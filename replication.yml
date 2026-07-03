@@ -3,7 +3,7 @@ paper:
   title: Ethnicity, Insurgency, and Civil War
   journal: American Political Science Review
   year: 2003
-  authors: James D. Fearon, David D. Laitin
+  authors: James Fearon, David Laitin
   dependencies:
     - haven
     - modelsummary
