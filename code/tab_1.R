@@ -10,52 +10,46 @@ make_tab_1 <- function(data) {
   df <- data
 
   # Stata variable lpopl is stored as lpopl1 in the replication data set.
-  if (!"lpopl" %in% names(df) && "lpopl1" %in% names(df)) {
-    df$lpopl <- df$lpopl1
-  }
+  df$lpopl <- df$lpopl1
 
   for (v in c("onset", "ethonset", "emponset", "cowonset")) {
     df[[v]] <- ifelse(df[[v]] == 1, 1, 0)
   }
 
-  m1 <- glm(
+  list(
+    
+    glm(
     onset ~ warl + gdpenl + lpopl + lmtnest + ncontig + Oil + nwstate +
       instab + polity2l + ethfrac + relfrac,
     data = df, family = binomial()
-  )
-
-  m2 <- glm(
+  ),
+  
+  glm(
     ethonset ~ warl + gdpenl + lpopl + lmtnest + ncontig + Oil + nwstate +
       instab + polity2l + ethfrac + relfrac,
     data = subset(df, second > 0.049999),
     family = binomial()
-  )
-
-  m3 <- glm(
+  ),
+  
+  glm(
     onset ~ warl + gdpenl + lpopl + lmtnest + ncontig + Oil + nwstate +
       instab + anocl + deml + ethfrac + relfrac,
     data = df, family = binomial()
-  )
-
-  m4 <- glm(
+  ),
+  
+  glm(
     emponset ~ empwarl + empgdpenl + emplpopl + emplmtnest + empncontig +
       Oil + nwstate + instab + empethfrac,
     data = df, family = binomial()
-  )
+  ),
 
-  m5 <- glm(
+  glm(
     cowonset ~ cowwarl + gdpenl + lpopl + lmtnest + ncontig + Oil + nwstate +
       instab + anocl + deml + ethfrac + relfrac,
     data = df, family = binomial()
   )
-
-  list(
-    "(1)" = m1,
-    "(2)" = m2,
-    "(3)" = m3,
-    "(4)" = m4,
-    "(5)" = m5
   )
+
 }
 
 format_tab_1 <- function(object) {
@@ -131,3 +125,5 @@ format_tab_1 <- function(object) {
 }
 
 make_tab_1(haven::read_dta("../data/repdata.dta")) |> format_tab_1()
+
+make_tab_1(repdata) |> format_tab_1()
