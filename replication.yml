@@ -9,6 +9,17 @@ paper:
     - modelsummary
     - kableExtra
 
+maintainer:
+  name: Macartan Humphreys
+  email: macartan.humphreys@wzb.eu
+
+collections:
+  - APSR
+
+languages:
+  - r
+  - stata
+
 replications:
 
   - id: tab_1
