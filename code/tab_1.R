@@ -115,4 +115,4 @@ format_tab_1 <- function(object) {
   html
 }
 
-make_tab_1(readRDS("../outputs/prep_data/repdata.rds")) |> format_tab_1()
+make_tab_1(readRDS("../outputs/analysis_data.rds")) |> format_tab_1()

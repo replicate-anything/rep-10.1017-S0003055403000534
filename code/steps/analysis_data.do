@@ -1,4 +1,4 @@
-* Prepare analysis dataset — Fearon & Laitin (2003)
+* Analysis dataset — Fearon & Laitin (2003)
 version 17
 set more off, permanently
 
@@ -6,9 +6,8 @@ local root "`c(pwd)'"
 local root : subinstr local root "\" "/", all
 global maindir "`root'"
 global datadir "${maindir}/data"
-global processed "${maindir}/outputs/prep_data"
+global processed "${maindir}/outputs"
 cap mkdir "${maindir}/outputs"
-cap mkdir "${processed}"
 
 use "${datadir}/repdata", clear
 
@@ -18,4 +17,4 @@ foreach v in onset ethonset emponset cowonset {
     replace `v' = 0 if `v' < 1
 }
 
-save "${processed}/repdata.dta", replace
+save "${processed}/analysis_data.dta", replace

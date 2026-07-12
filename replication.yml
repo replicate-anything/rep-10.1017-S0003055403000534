@@ -24,18 +24,18 @@ languages:
   - stata
 
 steps:
-  - id: prep_data
+  - id: analysis_data
     type: transform
-    label: Prepare analysis data
+    label: Analysis data
     description: Rename lpopl1 and recode onset indicators for analysis
     parents: []
     inputs:
       - data/repdata.dta
     outputs:
-      - outputs/prep_data/repdata.rds
-      - outputs/prep_data/repdata.dta
+      - outputs/analysis_data.rds
+      - outputs/analysis_data.dta
     engine: r
-    code: code/steps/prep_data.R
+    code: code/steps/analysis_data.R
     data: data/repdata.dta
     dependencies:
       - haven
@@ -46,11 +46,11 @@ steps:
     label: Table 1
     description: Logit analyses of determinants of civil war onset, 1945–99
     parents:
-      - prep_data
+      - analysis_data
     engine: r
     inputs:
-      - outputs/prep_data/repdata.rds
-    data: outputs/prep_data/repdata.rds
+      - outputs/analysis_data.rds
+    data: outputs/analysis_data.rds
     code: code/tab_1.R
     format: format_tab_1
     outputs:
