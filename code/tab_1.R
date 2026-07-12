@@ -9,48 +9,38 @@ library(kableExtra)
 make_tab_1 <- function(data) {
   df <- data
 
-  # Stata variable lpopl is stored as lpopl1 in the replication data set.
-  df$lpopl <- df$lpopl1
-
-  # Data not actually binary but treated as binary by stata
-  for (v in c("onset", "ethonset", "emponset", "cowonset")) {
-    df[[v]] <- ifelse(df[[v]] >= 1, 1, 0)
-  }
-
   list(
-    
     glm(
-    onset ~ warl + gdpenl + lpopl + lmtnest + ncontig + Oil + nwstate +
-      instab + polity2l + ethfrac + relfrac,
-    data = df, family = binomial()
-  ),
-  
-  glm(
-    ethonset ~ warl + gdpenl + lpopl + lmtnest + ncontig + Oil + nwstate +
-      instab + polity2l + ethfrac + relfrac,
-    data = subset(df, second > 0.049999),
-    family = binomial()
-  ),
-  
-  glm(
-    onset ~ warl + gdpenl + lpopl + lmtnest + ncontig + Oil + nwstate +
-      instab + anocl + deml + ethfrac + relfrac,
-    data = df, family = binomial()
-  ),
-  
-  glm(
-    emponset ~ empwarl + empgdpenl + emplpopl + emplmtnest + empncontig +
-      Oil + nwstate + instab + empethfrac,
-    data = df, family = binomial()
-  ),
+      onset ~ warl + gdpenl + lpopl + lmtnest + ncontig + Oil + nwstate +
+        instab + polity2l + ethfrac + relfrac,
+      data = df, family = binomial()
+    ),
 
-  glm(
-    cowonset ~ cowwarl + gdpenl + lpopl + lmtnest + ncontig + Oil + nwstate +
-      instab + anocl + deml + ethfrac + relfrac,
-    data = df, family = binomial()
-  )
-  )
+    glm(
+      ethonset ~ warl + gdpenl + lpopl + lmtnest + ncontig + Oil + nwstate +
+        instab + polity2l + ethfrac + relfrac,
+      data = subset(df, second > 0.049999),
+      family = binomial()
+    ),
 
+    glm(
+      onset ~ warl + gdpenl + lpopl + lmtnest + ncontig + Oil + nwstate +
+        instab + anocl + deml + ethfrac + relfrac,
+      data = df, family = binomial()
+    ),
+
+    glm(
+      emponset ~ empwarl + empgdpenl + emplpopl + emplmtnest + empncontig +
+        Oil + nwstate + instab + empethfrac,
+      data = df, family = binomial()
+    ),
+
+    glm(
+      cowonset ~ cowwarl + gdpenl + lpopl + lmtnest + ncontig + Oil + nwstate +
+        instab + anocl + deml + ethfrac + relfrac,
+      data = df, family = binomial()
+    )
+  )
 }
 
 format_tab_1 <- function(object) {
@@ -125,4 +115,4 @@ format_tab_1 <- function(object) {
   html
 }
 
-make_tab_1(haven::read_dta("../data/repdata.dta")) |> format_tab_1()
+make_tab_1(readRDS("../outputs/prep_data/repdata.rds")) |> format_tab_1()

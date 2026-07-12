@@ -3,6 +3,13 @@
 
 use "${datadir}/repdata", clear
 
+* Raw replication data uses lpopl1; analysis scripts expect lpopl
+rename lpopl1 lpopl
+foreach v in onset ethonset emponset cowonset {
+    replace `v' = 1 if `v' >= 1
+    replace `v' = 0 if `v' < 1
+}
+
 * Model #1
 logit onset warl gdpenl lpopl lmtnest ncontig Oil nwstate instab polity2l ethfrac relfrac, nolog
 

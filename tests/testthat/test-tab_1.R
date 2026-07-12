@@ -69,6 +69,38 @@ test_that("run_replication executes tab_1", {
       testthat::expect_type(models, "list")
       testthat::expect_length(models, 5L)
       testthat::expect_true(all(vapply(models, inherits, logical(1), "glm")))
+
+      source(file.path(ctx$study_root, "tests/substantive/tab_1.R"), local = TRUE)
+      substantive_check_tab_1(models)
+    }
+  )
+})
+
+test_that("tab_1 matches published Table 1 prior-war benchmarks", {
+  testthat::skip_if_not_installed("replicateEverything")
+  testthat::skip_if_not_installed("haven")
+
+  ctx <- study_test_context()
+  testthat::skip_if_not(dir.exists(ctx$registry_root), "registry checkout missing")
+  testthat::skip_if_not(
+    file.exists(file.path(ctx$study_root, "data", "repdata.dta")),
+    "study data missing"
+  )
+
+  withr::with_options(
+    list(
+      replicateEverything.registry_root = ctx$registry_root,
+      replicateEverything.index = ctx$local_index,
+      replicateEverything.use_sibling_packages = TRUE,
+      replicateEverything.study_folders_root = ctx$monorepo_root
+    ),
+    {
+      models <- replicateEverything::run_replication(DOI, WHAT)
+      source(file.path(ctx$study_root, "tests/substantive/tab_1.R"), local = TRUE)
+      replicateEverything::check_glm_table_benchmark(
+        models,
+        tab_1_prior_war_benchmark()
+      )
     }
   )
 })
@@ -81,7 +113,7 @@ test_that("formatted live table matches precomputed artifact", {
 
   ctx <- study_test_context()
   testthat::skip_if_not(dir.exists(ctx$registry_root), "registry checkout missing")
-  artifact_path <- file.path(ctx$study_root, "artifacts", "tab_1.html")
+  artifact_path <- file.path(ctx$study_root, "outputs", "tab_1.html")
   testthat::skip_if_not(file.exists(artifact_path), "tab_1 artifact missing")
 
   withr::with_options(
@@ -116,7 +148,7 @@ test_that("tab_1_stata artifact is available", {
   testthat::skip_if_not_installed("replicateEverything")
 
   ctx <- study_test_context()
-  artifact_path <- file.path(ctx$study_root, "artifacts", "tab_1_stata.html")
+  artifact_path <- file.path(ctx$study_root, "outputs", "tab_1_stata.html")
   testthat::skip_if_not(file.exists(artifact_path), "tab_1_stata artifact missing")
 
   withr::with_options(

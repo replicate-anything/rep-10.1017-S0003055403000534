@@ -1,3 +1,5 @@
+outputs/staging/
+outputs/staging/.run/
 artifacts/staging/
 artifacts/staging/.run/
 *.log

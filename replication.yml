@@ -1,5 +1,6 @@
 paper:
   doi: https://doi.org/10.1017/S0003055403000534
+  article_url: https://www.cambridge.org/core/journals/american-political-science-review/article/abs/ethnicity-insurgency-and-civil-war/B1D5D0E7C782483C5D7E102A61AD6605
   title: Ethnicity, Insurgency, and Civil War
   journal: American Political Science Review
   year: 2003
@@ -16,36 +17,76 @@ maintainer:
 collections:
   - APSR
 
+repo: replicate-anything/rep-10.1017-S0003055403000534
+
 languages:
   - r
   - stata
 
-replications:
+steps:
+  - id: prep_data
+    type: transform
+    label: Prepare analysis data
+    description: Rename lpopl1 and recode onset indicators for analysis
+    parents: []
+    inputs:
+      - data/repdata.dta
+    outputs:
+      - outputs/prep_data/repdata.rds
+      - outputs/prep_data/repdata.dta
+    engine: r
+    code: code/steps/prep_data.R
+    data: data/repdata.dta
+    dependencies:
+      - haven
 
   - id: tab_1
     group: tab_1
-    engine: r
     type: table
     label: Table 1
     description: Logit analyses of determinants of civil war onset, 1945–99
-    data: data/repdata.dta
+    parents:
+      - prep_data
+    engine: r
+    inputs:
+      - outputs/prep_data/repdata.rds
+    data: outputs/prep_data/repdata.rds
     code: code/tab_1.R
     format: format_tab_1
-    artifact: artifacts/tab_1.html
+    outputs:
+      - outputs/tab_1.html
+    artifact: outputs/tab_1.html
     dependencies:
       - haven
       - modelsummary
       - kableExtra
 
+  - id: tab_1_format
+    type: format
+    label: Table 1 format
+    parent: tab_1
+    code: code/tab_1.R
+
   - id: tab_1_stata
     group: tab_1
-    engine: stata
     type: table
     label: Table 1
     description: Logit analyses of determinants of civil war onset, 1945–99 (original Stata)
+    parents: []
+    engine: stata
+    inputs:
+      - data/repdata.dta
     data: data/repdata.dta
     code: code/tab_1.do
     stata_source: code/mkreptable1.do
     format: code/format_stata.R
-    output: artifacts/staging/tab_1_stata.log
-    artifact: artifacts/tab_1_stata.html
+    outputs:
+      - outputs/staging/tab_1_stata.log
+      - outputs/tab_1_stata.html
+    artifact: outputs/tab_1_stata.html
+
+  - id: tab_1_stata_format
+    type: format
+    label: Table 1 Stata format
+    parent: tab_1_stata
+    code: code/format_stata.R
