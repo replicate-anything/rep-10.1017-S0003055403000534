@@ -20,7 +20,7 @@ status <- system2(
   stdout = "",
   stderr = ""
 )
-log_path <- file.path(study, "artifacts/staging", "tab_1_stata.log")
+log_path <- file.path(study, "outputs/staging", "tab_1_stata.log")
 if (!file.exists(log_path)) {
   stop("Expected log not found after tab_1.do (status=", status, ")", call. = FALSE)
 }

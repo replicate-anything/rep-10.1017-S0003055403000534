@@ -29,7 +29,7 @@ manifest <- if (file.exists(manifest_path)) {
 }
 manifest$replications[[id]] <- list(
   status = "ok",
-  artifact = paste0("artifacts/", id, ".html"),
+  artifact = paste0("outputs/", id, ".html"),
   format = "html"
 )
 jsonlite::write_json(manifest, manifest_path, auto_unbox = TRUE, pretty = TRUE)
