@@ -96,11 +96,14 @@ test_that("tab_1 matches published Table 1 prior-war benchmarks", {
     ),
     {
       models <- replicateEverything::run_replication(DOI, WHAT)
-      source(file.path(ctx$study_root, "tests/substantive/tab_1.R"), local = TRUE)
-      replicateEverything::check_glm_table_benchmark(
+      sub <- replicateEverything:::run_substantive_check(
         models,
-        tab_1_prior_war_benchmark()
+        doi = DOI,
+        what = WHAT,
+        study_root = ctx$study_root
       )
+      testthat::expect_true(sub$checked)
+      testthat::expect_true(sub$ok)
     }
   )
 })

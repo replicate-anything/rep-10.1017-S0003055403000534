@@ -15,7 +15,7 @@ tab_1_prior_war_benchmark <- function() {
 #' @param object List of five glm objects from `make_tab_1()`.
 #' @param tolerance Numeric tolerance for coef/se (default 0.001).
 substantive_check_tab_1 <- function(object, tolerance = 0.001) {
-  replicateEverything::check_glm_table_benchmark(
+  check_glm_table_benchmark(
     object,
     tab_1_prior_war_benchmark(),
     tolerance = tolerance
