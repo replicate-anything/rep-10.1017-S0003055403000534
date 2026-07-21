@@ -5,6 +5,8 @@ paper:
   journal: American Political Science Review
   year: 2003
   authors: James Fearon, David Laitin
+  # Pin folder slug (mixed-case S) so sync keeps the GitHub repo name
+  study_folder: rep-10.1017-S0003055403000534
   dependencies:
     - haven
     - modelsummary
