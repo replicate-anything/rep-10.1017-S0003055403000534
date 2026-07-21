@@ -55,8 +55,6 @@ steps:
     format: format_tab_1
     outputs:
       - outputs/tab_1.html
-    outputs:
-      - outputs/tab_1.html
     dependencies:
       - haven
       - modelsummary
@@ -83,8 +81,6 @@ steps:
     format: code/format_stata.R
     outputs:
       - outputs/staging/tab_1_stata.log
-      - outputs/tab_1_stata.html
-    outputs:
       - outputs/tab_1_stata.html
 
   - id: tab_1_stata_format
