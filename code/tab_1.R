@@ -114,5 +114,3 @@ format_tab_1 <- function(object) {
   html <- gsub("&nbsp;", " ", html, fixed = TRUE)
   html
 }
-
-make_tab_1(readRDS("../outputs/analysis_data.rds")) |> format_tab_1()

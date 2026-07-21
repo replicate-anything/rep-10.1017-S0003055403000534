@@ -25,7 +25,7 @@ options(
   replicateEverything.registry_root = "../registry",
   replicateEverything.use_sibling_packages = TRUE
 )
-replicateEverything::build_study_artifacts(".", install_deps = TRUE)
+replicateEverything::build_study_outputs(".", install_deps = TRUE)
 ```
 
 ### Stata Table 1
