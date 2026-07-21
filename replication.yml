@@ -28,7 +28,6 @@ steps:
     type: transform
     label: Analysis data
     description: Rename lpopl1 and recode onset indicators for analysis
-    parents: []
     inputs:
       - data/repdata.dta
     outputs:
@@ -62,7 +61,6 @@ steps:
 
   - id: tab_1_format
     type: format
-    label: Table 1 format
     parent: tab_1
     code: code/tab_1.R
 
@@ -71,7 +69,6 @@ steps:
     type: table
     label: Table 1
     description: Logit analyses of determinants of civil war onset, 1945–99 (original Stata)
-    parents: []
     engine: stata
     inputs:
       - data/repdata.dta
@@ -85,6 +82,5 @@ steps:
 
   - id: tab_1_stata_format
     type: format
-    label: Table 1 Stata format
     parent: tab_1_stata
     code: code/format_stata.R
