@@ -55,7 +55,8 @@ steps:
     format: format_tab_1
     outputs:
       - outputs/tab_1.html
-    artifact: outputs/tab_1.html
+    outputs:
+      - outputs/tab_1.html
     dependencies:
       - haven
       - modelsummary
@@ -83,7 +84,8 @@ steps:
     outputs:
       - outputs/staging/tab_1_stata.log
       - outputs/tab_1_stata.html
-    artifact: outputs/tab_1_stata.html
+    outputs:
+      - outputs/tab_1_stata.html
 
   - id: tab_1_stata_format
     type: format
